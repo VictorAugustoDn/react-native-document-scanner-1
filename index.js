@@ -269,7 +269,7 @@ class DocumentScanner extends Component {
               // Capture button
               return (
                 <TouchableOpacity
-                  activeOpacity={0.6}
+                  activeOpacity={0.8}
                   onPress={() => this._handlePressCapture(camera)}
                   style={styles.captureBtn}
                 />
@@ -302,7 +302,7 @@ class DocumentScanner extends Component {
               points={this._getPolygonPoints()}
               fill="transparent"
               stroke={CROPPER_COLOR}
-              strokeWidth="1"
+              strokeWidth="2"
             />
           </Svg>
         )}
@@ -329,7 +329,11 @@ class DocumentScanner extends Component {
           <View
             style={[
               styles.zoomContainer,
-              { opacity: zoomOnPoint !== null ? 1 : 0 },
+              zoomOnPoint === null ? { opacity: 0 } : {
+                top: zoomOnPoint.y - ZOOM_CONTAINER_SIZE - 50,
+                left: zoomOnPoint.x - ZOOM_CONTAINER_SIZE / 2,
+                opacity: 1,
+              }
             ]}
           >
             {/* Image */}
@@ -363,7 +367,7 @@ class DocumentScanner extends Component {
 const IMAGE_CROPPER_POINT_CONTAINER_SIZE = 40;
 const IMAGE_CROPPER_POINT_SIZE = 20;
 
-const CROPPER_COLOR = "#0082CA";
+const CROPPER_COLOR = "rgba(0,255,0, 0.8)";
 
 const ZOOM_CONTAINER_SIZE = 120;
 const ZOOM_CONTAINER_BORDER_WIDTH = 2;
@@ -380,10 +384,10 @@ const styles = StyleSheet.create({
   captureBtn: {
     alignSelf: "center",
     position: "absolute",
-    bottom: 40,
-    width: 60,
-    height: 60,
-    borderRadius: 30,
+    bottom: 30,
+    width: 70,
+    height: 70,
+    borderRadius: 40,
     backgroundColor: "white",
     borderWidth: 5,
     borderColor: "#c2c2c2",
